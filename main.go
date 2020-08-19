@@ -3,10 +3,12 @@ package main
 import (
 	"log"
 	"net/http"
-	"controllers"
+
+	"github.com/SakaiTaka23/wikigo/controllers"
 )
 
 func main() {
-	http.HandleFunc("/index", IndexHandler)
+	http.HandleFunc("/index", controllers.IndexHandler)
+
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }
