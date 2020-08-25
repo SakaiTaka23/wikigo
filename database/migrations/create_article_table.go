@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/jinzhu/gorm"
 	// import
+	"github.com/SakaiTaka23/wikigo/models"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
@@ -12,4 +13,5 @@ func main() {
 		println("接続エラー")
 	}
 	defer db.Close()
+	db.AutoMigrate(&models.Article{})
 }

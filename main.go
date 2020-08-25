@@ -9,6 +9,7 @@ import (
 
 func main() {
 	http.HandleFunc("/index", controllers.IndexHandler)
+	http.HandleFunc("/edit/", controllers.EditHandler)
 
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }

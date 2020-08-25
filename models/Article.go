@@ -1,27 +1,40 @@
 package models
 
 import (
-	"html/template"
-	"net/http"
-	"regexp"
+	"time"
+
+	"github.com/jinzhu/gorm"
+
+	// import
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-//Page struct
-type Page struct {
-	Title string
-	Body  []byte
+// Article struct
+type Article struct {
+	ID        int    `gorm:"primary_key;AUTO_INCREMENT"`
+	Title     string `gorm:"unique;not null"`
+	Body      string `gorm:"not null"`
+	Author    string `gorm:"default:'匿名'"`
+	UpdatedAt time.Time
 }
 
-// Templates var
-var Templates = template.Must(template.ParseFiles("views/index.html"))
+// Save func
+func (a *Article) Save() error {
+	db, _ := gorm.Open("mysql", "fumi:abc123@/gowiki?charset=utf8&parseTime=True&loc=Local")
+	defer db.Close()
+	db.Where(Article{Title: a.Title}).FirstOrCreate(&a)
+	return nil
+}
 
-// ValidPath var
-var ValidPath = regexp.MustCompile("^/(edit|save|view|index)/([a-zA-Z0-9]+)$")
-
-// RenderTemplate func
-func RenderTemplate(w http.ResponseWriter, tmpl string, p *Page) {
-	err := Templates.ExecuteTemplate(w, tmpl+".html", p)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+// Find func
+func Find(title string) *Article {
+	db, _ := gorm.Open("mysql", "fumi:abc123@/gowiki?charset=utf8&parseTime=True&loc=Local")
+	defer db.Close()
+	var a Article
+	result := db.Where("Title = ?", title).Take(&a)
+	println(result)
+	if result == nil {
+		return nil
 	}
+	return nil
 }
