@@ -10,6 +10,29 @@
     <body>
         <h1>index</h1>
         <h2>this is wiki enjoy!</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Author</th>
+                    <th>UpdatedAt</th>
+                    <th>url</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {{range .res}}
+                    <th>{{.Title}}</th>
+                    <th>{{.Body}}</th>
+                    <th>{{.Author}}</th>
+                    <th>{{.UpdatedAt}}</th>
+                    <th><a href="#">url</a></th>
+                    {{end}}
+                </tr>
+            </tbody>
+        </table>
     </body>
 
 </html>

@@ -8,8 +8,9 @@ import (
 
 // IndexHandler func
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
+	res := models.GetIndex()
 	t, _ := template.ParseFiles("views/index.html")
-	t.Execute(w, r)
+	t.Execute(w, res)
 }
 
 // EditHandler func
