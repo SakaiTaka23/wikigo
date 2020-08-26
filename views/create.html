@@ -8,11 +8,12 @@
     </head>
 
     <body>
-        <h1>Editing {{.Title}}</h1>
+        <h1>新規作成</h1>
 
-        <form action="/update/{{.Title}}" method="POST">
-            <div>作者<input type="text" name="author" value="{{.Author}}"></div>
-            <div><textarea name="body" rows="20" cols="80">{{printf "%s" .Body}}</textarea></div>
+        <form action="/update/" method="POST">
+            <div>タイトル<input type="text" name="title"></div>
+            <div>作者<input type="text" name="author"></div>
+            <div>内容<textarea name="body" rows="20" cols="80"></textarea></div>
             <div><input type="submit" value="Save"></div>
         </form>
     </body>

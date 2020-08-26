@@ -10,7 +10,9 @@ import (
 func main() {
 	http.HandleFunc("/index", controllers.IndexHandler)
 	http.HandleFunc("/edit/", controllers.EditHandler)
-	//http.HandleFunc("/save/", controllers.SaveHandler)
+	http.HandleFunc("/show/", controllers.ShowHandler)
+	http.HandleFunc("/update/", controllers.UpdateHandler)
+	http.HandleFunc("/create", controllers.CreateHandler)
 
 	log.Fatal(http.ListenAndServe(":3000", nil))
 }

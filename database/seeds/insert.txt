@@ -1,1 +1,2 @@
 insert into articles (title,body,author,updated_at) values ("hello","this is greeting","fumi",now());
+insert into articles (title,body,author,updated_at) values ("こんにちは","this is greeting in japan","fumi",now());
