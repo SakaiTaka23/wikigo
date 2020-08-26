@@ -50,7 +50,10 @@ func UpdateHandler(w http.ResponseWriter, r *http.Request) {
 	p := models.Article{Title: title, Body: body, Author: author, UpdatedAt: time.Now()}
 	fmt.Println("p:")
 	fmt.Println(p)
-	p.SaveInfo()
+	validate := p.SaveInfo()
+	if validate != "" {
+		http.Redirect(w, r, "/index", http.StatusFound)
+	}
 	fmt.Println("title:" + title)
 	http.Redirect(w, r, "/show/"+title, http.StatusFound)
 }

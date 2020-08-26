@@ -19,10 +19,28 @@ type Article struct {
 }
 
 // SaveInfo func
-func (a *Article) SaveInfo() error {
+func (a *Article) SaveInfo() string {
 	db, _ := sql.Open("mysql", "fumi:abc123@/wikigo?parseTime=true&charset=utf8")
 	defer db.Close()
-	//db.Where(Article{Title: a.Title}).FirstOrCreate(&a)
+
+	var validate string
+	if len(a.Title) == 0 || len(a.Body) == 0{
+		validate += "タイトルと本文は入力必須です。\n" 
+	}
+	if len(a.Title) > 20 {
+		validate += "タイトルは20文字以下にしてください。\n"
+	}
+	if len(a.Body) > 150 {
+		validate += "本文は150文字以下にしてください。\n"
+	} 
+	if len(a.Author) > 10 {
+		validate += "名前は10文字いかにしてください。\n"
+	}
+
+	if validate != "" {
+		return validate
+	}
+
 	rows, err := db.Query("SELECT COUNT(*) FROM articles where title = ? LIMIT 1", a.Title)
 	checkErr(err)
 	if !rows.Next() {
@@ -35,7 +53,7 @@ func (a *Article) SaveInfo() error {
 		checkErr(err)
 	}
 	println("success!")
-	return nil
+	return ""
 }
 
 // GetIndex func
