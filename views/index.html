@@ -10,6 +10,9 @@
     <body>
         <h1>index</h1>
         <h2>this is wiki enjoy!</h2>
+        <a href="/create">
+            <h2>make new</h2>
+        </a>
 
         <table>
             <thead>
@@ -23,12 +26,12 @@
             </thead>
             <tbody>
                 <tr>
-                    {{range .res}}
+                    {{range .Article}}
                     <th>{{.Title}}</th>
                     <th>{{.Body}}</th>
                     <th>{{.Author}}</th>
                     <th>{{.UpdatedAt}}</th>
-                    <th><a href="#">url</a></th>
+                    <th><a href="/show/{{.Title}}">url</a></th>
                     {{end}}
                 </tr>
             </tbody>
